@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    ports:
+      - 9090:3306
+    networks:
+      - srcs_default
+    env_file:
+     - .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    restart: always
+    networks:
+      - srcs_default
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+  
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    depends_on:
+      - wordpress
+    networks:
+      - srcs_default
+    ports:
+      - 8080:80
+      - 8443:443
+    env_file:
+      - .env
+    volumes:
+      - nginx_config:/etc/nginx/conf.d
+    links:
+      - wordpress
+
+networks:
+  srcs_default:
+    external: true
+
+volumes:
+  mariadb_data:
+  wordpress_data:
+  nginx_config:

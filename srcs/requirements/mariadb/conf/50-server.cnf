@@ -1,0 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    50-server.cnf                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qdenizar <qdenizar@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/29 15:31:34 by qdenizar          #+#    #+#              #
+#    Updated: 2024/01/08 12:34:46 by qdenizar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+[mysqld]
+datadir = /var/lib/mysql #dossier ou stocker la base de donne
+socket  = /run/mysqld/mysqld.sock # qu'est ce que c'est ?
+bind_address=* # autorise tts les adresse IP du reseau a se co
+#port = 3306
+port = 9090
+user = mysql
