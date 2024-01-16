@@ -6,11 +6,11 @@
 #    By: qdenizar <qdenizar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/29 10:26:21 by qdenizar          #+#    #+#              #
-#    Updated: 2024/01/05 14:21:14 by qdenizar         ###   ########.fr        #
+#    Updated: 2024/01/16 15:05:29 by qdenizar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt update -y && \
     apt upgrade -y && \

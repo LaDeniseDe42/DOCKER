@@ -8,7 +8,7 @@ services:
     ports:
       - 9090:3306
     networks:
-      - srcs_default
+      - inception
     env_file:
      - .env
     #volumes:
@@ -23,7 +23,7 @@ services:
     image: wordpress
     restart: on-failure
     networks:
-      - srcs_default
+      - inception
     depends_on:
       - mariadb
     env_file:
@@ -42,7 +42,7 @@ services:
     depends_on:
       - wordpress
     networks:
-      - srcs_default
+      - inception
     ports:
       - 8080:80
       - 8443:443
@@ -59,8 +59,8 @@ services:
       - wordpress
 
 networks:
-  srcs_default:
-    external: true
+  inception:
+    driver: bridge 
 
 volumes:
   mariadb_data:
