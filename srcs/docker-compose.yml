@@ -4,33 +4,41 @@ services:
   mariadb:
     container_name: mariadb
     image: mariadb
-    restart: always
+    restart: on-failure
     ports:
       - 9090:3306
     networks:
       - srcs_default
     env_file:
      - .env
+    #volumes:
+    #  - mariadb_data: /var/lib/mysql
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - type: volume
+        source: mariadb_data
+        target: /var/lib/mysql
 
   wordpress:
     container_name: wordpress
     image: wordpress
-    restart: always
+    restart: on-failure
     networks:
       - srcs_default
     depends_on:
       - mariadb
     env_file:
       - .env
+   # volumes:
+    #  - wordpress_data: /var/www/html
     volumes:
-      - wordpress_data:/var/www/html
+    - type: volume
+      source: wordpress_data
+      target: /var/www/html
   
   nginx:
     container_name: nginx
     image: nginx
-    restart: always
+    restart: on-failure
     depends_on:
       - wordpress
     networks:
@@ -40,8 +48,13 @@ services:
       - 8443:443
     env_file:
       - .env
+    #volumes:
+     # - nginx_config: /etc/nginx/conf.d
     volumes:
-      - nginx_config:/etc/nginx/conf.d
+    - type: volume
+      source: nginx_config
+      target: /etc/nginx/conf.d
+
     links:
       - wordpress
 

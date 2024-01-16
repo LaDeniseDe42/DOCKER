@@ -6,11 +6,11 @@
 #    By: qdenizar <qdenizar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/29 10:26:17 by qdenizar          #+#    #+#              #
-#    Updated: 2024/01/05 14:16:19 by qdenizar         ###   ########.fr        #
+#    Updated: 2024/01/16 13:51:34 by qdenizar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt update -y && \
     apt upgrade -y && \
@@ -22,6 +22,9 @@ RUN wget https://fr.wordpress.org/wordpress-6.4.2-fr_FR.tar.gz -P /var/www && \
     chown -R root:root /var/www/wordpress
 
 COPY conf/wp-config.php /var/www/html/wp-config-sample.php
+COPY conf/apache2.conf /etc/apache2/apache2.conf
+COPY conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY conf/hosts /etc/hosts
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
