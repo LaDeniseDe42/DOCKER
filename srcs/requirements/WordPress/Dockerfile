@@ -22,8 +22,6 @@ RUN wget https://fr.wordpress.org/wordpress-6.4.2-fr_FR.tar.gz -P /var/www && \
     chown -R root:root /var/www/wordpress
 
 COPY conf/wp-config.php /var/www/html/wp-config-sample.php
-COPY conf/apache2.conf /etc/apache2/apache2.conf
-COPY conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY conf/hosts /etc/hosts
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
@@ -32,9 +30,6 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 # Définir le répertoire de travail
 WORKDIR /var/www/wordpress
-
-# Exposer le port nécessaire pour PHP-FPM (par exemple, 9000)
-EXPOSE 9000
 
 # Commande par défaut pour lancer PHP-FPM
 CMD ["php-fpm"]

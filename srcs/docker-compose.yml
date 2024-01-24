@@ -5,18 +5,14 @@ services:
     container_name: mariadb
     image: mariadb
     restart: on-failure
-    ports:
-      - 9090:3306
+    expose:
+      - "3306"
     networks:
       - inception
     env_file:
      - .env
-    #volumes:
-    #  - mariadb_data: /var/lib/mysql
     volumes:
-      - type: volume
-        source: mariadb_data
-        target: /var/lib/mysql
+      - mariadb:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
@@ -28,33 +24,26 @@ services:
       - mariadb
     env_file:
       - .env
-   # volumes:
-    #  - wordpress_data: /var/www/html
     volumes:
-    - type: volume
-      source: wordpress_data
-      target: /var/www/html
+     - wordpress:/var/www/html
+    expose:
+      - "9000"
+
   
   nginx:
     container_name: nginx
     image: nginx
-    restart: on-failure
+    restart: always
+    volumes:
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
       - inception
     ports:
-      - 8080:80
-      - 8443:443
+      - "443:443"
     env_file:
       - .env
-    #volumes:
-     # - nginx_config: /etc/nginx/conf.d
-    volumes:
-    - type: volume
-      source: nginx_config
-      target: /etc/nginx/conf.d
-
     links:
       - wordpress
 
@@ -63,6 +52,15 @@ networks:
     driver: bridge 
 
 volumes:
-  mariadb_data:
-  wordpress_data:
-  nginx_config:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/qdenizar/data/wordpress'
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none' 
+      o: 'bind'
+      device: '/home/qdenizar/data/mariadb'

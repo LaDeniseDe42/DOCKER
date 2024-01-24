@@ -18,24 +18,26 @@ DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
 all: build up
 
 build:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
 
 up:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
+	@sudo mkdir -p /home/qdenizar/data/wordpress
+	@sudo mkdir -p /home/qdenizar/data/mariadb
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
 
 down:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
 
 restart:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) restart
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) restart
 
 logs:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
 
 ps:
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) ps
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
-	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) rm -f
+	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) rm -f
 
 .PHONY: all build up down restart logs ps clean
