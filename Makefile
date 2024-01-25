@@ -1,22 +1,12 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qdenizar <qdenizar@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/29 10:25:49 by qdenizar          #+#    #+#              #
-#    Updated: 2024/01/05 14:00:32 by qdenizar         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # Variables
 DOCKER_COMPOSE = docker-compose
 FILE = srcs/docker-compose.yml
 
 # Cibles
-all: build up
-
+all:
+	@sudo mkdir -p /home/qdenizar/data/wordpress
+	@sudo mkdir -p /home/qdenizar/data/mariadb
+	@sudo docker-compose -f srcs/docker-compose.yml up --build
 build:
 	@sudo docker-compose -f $(FILE) build
 
