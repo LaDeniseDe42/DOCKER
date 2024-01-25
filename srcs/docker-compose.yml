@@ -3,8 +3,8 @@ version: "3"
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb
-    restart: on-failure
+    build: requirements/mariadb
+    restart: always
     expose:
       - "3306"
     networks:
@@ -16,8 +16,8 @@ services:
 
   wordpress:
     container_name: wordpress
-    image: wordpress
-    restart: on-failure
+    build: requirements/wordpress
+    restart: always
     networks:
       - inception
     depends_on:
@@ -25,25 +25,25 @@ services:
     env_file:
       - .env
     volumes:
-     - wordpress:/var/www/html
+     - wordpress:/var/www
     expose:
       - "9000"
 
   
   nginx:
     container_name: nginx
-    image: nginx
+    build: requirements/nginx
     restart: always
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/
     depends_on:
       - wordpress
     networks:
       - inception
-    ports:
-      - "443:443"
     env_file:
       - .env
+    ports:
+      - "443:443"
     links:
       - wordpress
 

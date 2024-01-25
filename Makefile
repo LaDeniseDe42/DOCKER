@@ -12,32 +12,35 @@
 
 # Variables
 DOCKER_COMPOSE = docker-compose
-DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
+FILE = srcs/docker-compose.yml
 
 # Cibles
 all: build up
 
 build:
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
+	@sudo docker-compose -f $(FILE) build
 
 up:
 	@sudo mkdir -p /home/qdenizar/data/wordpress
 	@sudo mkdir -p /home/qdenizar/data/mariadb
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
+	@sudo docker-compose -f $(FILE) up -d
 
 down:
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
+	@sudo docker-compose -f $(FILE) down
 
 restart:
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) restart
+	@sudo docker-compose -f $(FILE) restart
 
 logs:
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
+	@sudo docker-compose -f $(FILE) logs -f
 
 ps:
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) ps
+	@sudo docker-compose -f $(FILE) ps
 
 clean: down
-	@sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) rm -f
+	@sudo rm -rf /home/ngalzand/data/wordpress/*
+	@sudo rm -rf /home/ngalzand/data/mariadb/*
+	@sudo docker-compose -f $(FILE) rm -f
+	@sudo docker system prune -f
 
 .PHONY: all build up down restart logs ps clean
