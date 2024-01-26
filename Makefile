@@ -4,14 +4,14 @@ FILE = srcs/docker-compose.yml
 
 # Cibles
 all:
-	@sudo mkdir -p /home/qdenizar/data/wordpress
+	@sudo mkdir -p /home/qdenizar/data/WordPress
 	@sudo mkdir -p /home/qdenizar/data/mariadb
 	@sudo docker-compose -f srcs/docker-compose.yml up --build
 build:
 	@sudo docker-compose -f $(FILE) build
 
 up:
-	@sudo mkdir -p /home/qdenizar/data/wordpress
+	@sudo mkdir -p /home/qdenizar/data/WordPress
 	@sudo mkdir -p /home/qdenizar/data/mariadb
 	@sudo docker-compose -f $(FILE) up -d
 
@@ -28,8 +28,8 @@ ps:
 	@sudo docker-compose -f $(FILE) ps
 
 clean: down
-	@sudo rm -rf /home/ngalzand/data/wordpress/*
-	@sudo rm -rf /home/ngalzand/data/mariadb/*
+	@sudo rm -rf /home/qdenizar/data/wordpress/*
+	@sudo rm -rf /home/qdenizar/data/mariadb/*
 	@sudo docker-compose -f $(FILE) rm -f
 	@sudo docker system prune -f
 
