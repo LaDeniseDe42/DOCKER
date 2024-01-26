@@ -1,5 +1,4 @@
 # Variables
-DOCKER_COMPOSE = docker-compose
 FILE = srcs/docker-compose.yml
 
 # Cibles

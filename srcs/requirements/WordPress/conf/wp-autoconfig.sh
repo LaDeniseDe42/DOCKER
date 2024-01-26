@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-echo "running wp-autoconfig.sh script..."
+echo "Running wp-autoconfig.sh script..."
 sleep 10
 
 if [ -f /var/www/html/wp-config.php ]; then
@@ -13,6 +13,6 @@ wp core install --allow-root --url=${HOSTNAME} --title="Inception" --admin_user=
 wp user create --allow-root ${USER} ${USER}@${HOSTNAME} --role=author --user_pass=${USER_PASSWORD}
 wp plugin update --allow-root --all
 
-echo "done."
+echo "JOB done."
 
 /usr/sbin/php-fpm7.4 -F

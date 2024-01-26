@@ -17,7 +17,7 @@ services:
   wordpress:
     container_name: wordpress
     build: requirements/WordPress
-    restart: always
+    restart: on-failure
     networks:
       - inception
     depends_on:
