@@ -24,7 +24,7 @@ services:
       - mariadb
     env_file:
       - .env
-    volumes:
+    volumes:  
      - wordpress:/var/www
     expose:
       - "9000"
