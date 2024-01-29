@@ -48,6 +48,10 @@ RUN	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 COPY	conf/wp-autoconfig.sh ./wp-autoconfig.sh
 
 RUN	mkdir -p /run/php/ && \
-	chmod +x wp-autoconfig.sh 
+	chmod +x wp-autoconfig.sh
+
+COPY conf/my-custom-theme/ /var/www/html/wp-content/themes/my-custom-theme/
+
+#RUN echo "define('WP_DEFAULT_THEME', 'my-custom-theme');" >> /var/www/html/wp-config.php
 
 CMD ["/bin/bash", "/var/www/html/wp-autoconfig.sh"] 
