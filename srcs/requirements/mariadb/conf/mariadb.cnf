@@ -5,7 +5,7 @@ user=root
 
 [mysqld]
 port=3306
-datadir=/var/lib/mysql
-socket=/var/run/mysqld/mysqld.sock
+datadir=/var/lib/mysql #Définit le répertoire où MariaDB stocke ses bases de données et fichiers associés.
+socket=/var/run/mysqld/mysqld.sock #Indique l'emplacement du fichier socket utilisé pour les communications locales entre le serveur MySQL/MariaDB et les clients.
 bind_address=* #autorise tts les adresse IP du reseau a se co
 skip-networking=false

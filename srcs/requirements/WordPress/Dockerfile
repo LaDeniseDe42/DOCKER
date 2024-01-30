@@ -16,25 +16,10 @@ RUN apt update -y && \
     apt upgrade -y && \
     apt install -y vim wget php7.4 php7.4-fpm php7.4-mysqli php7.4-gd && \
 	sed -i "s|listen = /run/php/php7.4-fpm.sock|listen = 9000|g" /etc/php/7.4/fpm/pool.d/www.conf
- #   apt-get -y install wget && \
- #   apt-get install -y php7.3 php-fpm php-mysql mariadb-client
-    
-#RUN wget https://fr.wordpress.org/wordpress-6.4.2-fr_FR.tar.gz -P /var/www && \
-  #  cd /var/www && tar -xzf wordpress-6.4.2-fr_FR.tar.gz && rm wordpress-6.4.2-fr_FR.tar.gz && \
- #   chown -R root:root /var/www/wordpress
+# installe plusieurs paquets (Vim, Wget, PHP et ses extensions)
+#modifie la configuration de PHP-FPM pour écouter sur le port 9000 au lieu du socket par défaut.
 
-#COPY conf/wp-config.php /var/www/html/wp-config-sample.php
-#COPY conf/hosts /etc/hosts
 
-#RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
- #   chmod +x wp-cli.phar && \
- #   mv wp-cli.phar /usr/local/bin/wp
-#
-# Définir le répertoire de travail
-#WORKDIR /var/www/wordpress
-
-# Commande par défaut pour lancer PHP-FPM
-#CMD ["php-fpm"]
 WORKDIR	/var/www/html
 
 RUN	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar  && \
@@ -44,14 +29,19 @@ RUN	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 	rm -rf wordpress wordpress-6.4.2-fr_FR.tar.gz && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
+#Yélécharge WP-CLI (un outil en ligne de commande pour WordPress), la version française de WordPres,
+#puis la décompresse dans le répertoire de travail,
+# copie son contenu à la racine du serveur web,
+# supprime les fichiers téléchargés, donne des permissions d'exécution à WP-CLI
+#et le déplace dans le répertoire /usr/local/bin/ pour qu'il soit accessible globalement.
 
 COPY	conf/wp-autoconfig.sh ./wp-autoconfig.sh
 
 RUN	mkdir -p /run/php/ && \
 	chmod +x wp-autoconfig.sh
+#crée le répertoire /run/php/ et donne les droits d'exécution au script wp-autoconfig.sh.
 
 COPY conf/my-custom-theme/ /var/www/html/wp-content/themes/my-custom-theme/
 
-#RUN echo "define('WP_DEFAULT_THEME', 'my-custom-theme');" >> /var/www/html/wp-config.php
-
-CMD ["/bin/bash", "/var/www/html/wp-autoconfig.sh"] 
+CMD ["/bin/bash", "/var/www/html/wp-autoconfig.sh"]
+#lance le script wp-autoconfig.sh
