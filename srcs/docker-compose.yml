@@ -4,7 +4,7 @@ services:
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
-    restart: always
+    restart: unless-stopped
     expose:
       - "3306"
     networks:
@@ -34,7 +34,7 @@ services:
   nginx:
     container_name: nginx
     build: requirements/nginx
-    restart: always
+    restart: on-failure
     volumes:
       - wordpress:/var/www/
     depends_on:
@@ -45,11 +45,6 @@ services:
       - .env
     ports:
       - "443:443"
-    links:
-      - wordpress
-    #'établir des liens de communication entre les conteneurs,
-    # et dans ce cas spécifique, Nginx peut utiliser le nom d'hôte "wordpress"
-    # pour résoudre l'adresse IP du conteneur WordPress et communiquer avec lui
 
 networks:
   inception:

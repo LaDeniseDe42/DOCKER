@@ -2,10 +2,8 @@
 FILE = srcs/docker-compose.yml
 
 # Cibles
-all:
-	@sudo mkdir -p /home/qdenizar/data/WordPress
-	@sudo mkdir -p /home/qdenizar/data/mariadb
-	@sudo docker-compose -f srcs/docker-compose.yml up --build
+all: build up
+
 build:
 	@sudo docker-compose -f $(FILE) build
 
@@ -21,7 +19,7 @@ restart:
 	@sudo docker-compose -f $(FILE) restart
 
 logs:
-	@sudo docker-compose -f $(FILE) logs -f
+	@sudo docker-compose -f $(FILE) logs
 
 ps:
 	@sudo docker-compose -f $(FILE) ps
