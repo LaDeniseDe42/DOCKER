@@ -15,9 +15,6 @@ wp plugin update --allow-root --all
 
 fi
 
-#wp theme activate my-custom-theme --allow-root
-#echo "define('WP_DEFAULT_THEME', 'my-custom-theme');" >> /var/www/html/wp-config.php
-
 echo "JOB done."
 
 /usr/sbin/php-fpm7.4 -F

@@ -41,7 +41,5 @@ RUN	mkdir -p /run/php/ && \
 	chmod +x wp-autoconfig.sh
 #crée le répertoire /run/php/ et donne les droits d'exécution au script wp-autoconfig.sh.
 
-COPY conf/my-custom-theme/ /var/www/html/wp-content/themes/my-custom-theme/
-
 CMD ["/bin/bash", "/var/www/html/wp-autoconfig.sh"]
 #lance le script wp-autoconfig.sh

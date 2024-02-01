@@ -21,6 +21,7 @@ RUN apt update && \
     mkdir -p /var/run/nginx
 #installe Vim, Nginx, OpenSSL,
 # crée un dossier pour les certificats SSL,
+#-x509 c'est le type de certificat standard 
 # génère un certificat auto-signé avec OpenSSL
 #crée un dossier pour les fichiers de travail de Nginx.
 
