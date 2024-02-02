@@ -8,7 +8,7 @@ build:
 	@sudo docker-compose -f $(FILE) build
 
 up:
-	@sudo mkdir -p /home/qdenizar/data/WordPress
+	@sudo mkdir -p /home/qdenizar/data/wordpress
 	@sudo mkdir -p /home/qdenizar/data/mariadb
 	@sudo docker-compose -f $(FILE) up -d
 
