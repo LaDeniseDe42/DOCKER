@@ -30,5 +30,4 @@ RUN	chmod +x /etc/mysql/setup.sh
 ENTRYPOINT ["/bin/bash", "/etc/mysql/setup.sh"]
 #Exécute le script setup.sh en utilisant /bin/bash au lancement du conteneur
 
-CMD ["mysqld", "--bind-address=0.0.0.0"]
-#Donen l'autorisation a toutes les adresse ip de se conneceter
+CMD ["mysqld"]

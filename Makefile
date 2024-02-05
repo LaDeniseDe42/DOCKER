@@ -29,5 +29,7 @@ clean: down
 	@sudo rm -rf /home/qdenizar/data/mariadb/*
 	@sudo docker-compose -f $(FILE) rm -f
 	@sudo docker system prune -f
+	@sudo docker volume rm srcs_wordpress
+	@sudo docker volume rm srcs_mariadb
 
 .PHONY: all build up down restart logs ps clean
